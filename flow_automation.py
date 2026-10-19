@@ -301,10 +301,15 @@ class GoogleFlowAutomation:
             page.keyboard.press("Escape")
             return False
 
-    def try_open_canvas_card(self, page: Page) -> bool:
+    def try_open_canvas_card(self, page: Page, excluded_urls: Optional[Set[str]] = None) -> bool:
         """Finds and clicks the latest generated media card on the Google Flow canvas to reveal the video player."""
-        if page.locator("video").count() > 0 and page.locator("video").first.is_visible():
-            return True
+        excluded = excluded_urls or set()
+        video_locator = page.locator("video")
+        if video_locator.count() > 0:
+            for i in range(video_locator.count()):
+                src = video_locator.nth(i).get_attribute("src")
+                if src and src.strip() not in excluded and video_locator.nth(i).is_visible():
+                    return True
 
         # 1. Direct HTML5 Canvas Coordinate Click (Flow cards are WebGL rendered)
         try:
@@ -314,9 +319,11 @@ class GoogleFlowAutomation:
                 for x, y in coords_to_try:
                     page.mouse.click(x, y)
                     page.wait_for_timeout(1200)
-                    if page.locator("video").count() > 0:
-                        logger.info(f"Canvas card successfully opened at coordinates ({x}, {y})!")
-                        return True
+                    for i in range(page.locator("video").count()):
+                        v_src = page.locator("video").nth(i).get_attribute("src")
+                        if v_src and v_src.strip() not in excluded:
+                            logger.info(f"Canvas card successfully opened at coordinates ({x}, {y}) with fresh video!")
+                            return True
         except Exception as e:
             logger.debug(f"Canvas coordinate click notice: {e}")
 
@@ -340,39 +347,49 @@ class GoogleFlowAutomation:
                         logger.info(f"Clicking latest canvas card with selector '{sel}'...")
                         target.click(force=True)
                         page.wait_for_timeout(1500)
-                        if page.locator("video").count() > 0:
-                            logger.info("Canvas card clicked successfully, video player revealed!")
-                            return True
+                        for i in range(page.locator("video").count()):
+                            v_src = page.locator("video").nth(i).get_attribute("src")
+                            if v_src and v_src.strip() not in excluded:
+                                logger.info("Canvas card clicked successfully, fresh video player revealed!")
+                                return True
             except Exception as e:
                 logger.debug(f"Selector '{sel}' click notice: {e}")
 
         return False
 
-    def extract_and_download_video(self, page: Page, prompt_item: Dict[str, Any], direct_url: Optional[str] = None) -> Optional[Path]:
+    def extract_and_download_video(self, page: Page, prompt_item: Dict[str, Any], direct_url: Optional[str] = None, excluded_urls: Optional[Set[str]] = None) -> Optional[Path]:
         """Detect and download completed video either via direct URL, download button, or video element src."""
         prompt_text = prompt_item.get("prompt", "")
         target_name = self.downloader.generate_filename(prompt_text=prompt_text)
+        excluded = excluded_urls or set()
 
         # 0. Direct captured URL from network response listener
-        if direct_url and direct_url.startswith("http"):
+        if direct_url and direct_url.startswith("http") and direct_url.strip() not in excluded:
             try:
                 logger.info(f"Downloading directly from captured stream URL: {direct_url[:60]}...")
                 return self.downloader.download_url(direct_url, target_filename=target_name)
             except Exception as e:
                 logger.warning(f"Direct stream URL download notice ({e}), falling back to UI extraction...")
 
-        # If video element is not yet in DOM, click the canvas card
-        if page.locator("video").count() == 0:
-            self.try_open_canvas_card(page)
+        # If fresh video element is not yet in DOM, click the canvas card
+        has_fresh_video = False
+        for i in range(page.locator("video").count()):
+            src = page.locator("video").nth(i).get_attribute("src")
+            if src and src.strip() not in excluded:
+                has_fresh_video = True
+                break
 
-        # 1. Check for <video> element inside player
+        if not has_fresh_video:
+            self.try_open_canvas_card(page, excluded_urls=excluded)
+
+        # 1. Check for <video> element inside player that is NOT an excluded previous video
         video_locator = page.locator("video")
         if video_locator.count() > 0:
             for i in range(video_locator.count()):
                 v = video_locator.nth(i)
                 src = v.get_attribute("src")
-                if src:
-                    logger.info(f"Found video element src: {src[:60]}...")
+                if src and src.strip() not in excluded:
+                    logger.info(f"Found fresh video element src: {src[:60]}...")
                     if src.startswith("blob:"):
                         try:
                             saved_path = self.downloader.download_blob_via_page(page, src, target_filename=target_name)
@@ -420,6 +437,15 @@ class GoogleFlowAutomation:
         logger.info(f"--- Starting Prompt [{prompt_id}]: '{prompt_text}' ---")
         self.prompt_manager.update_status(prompt_id, "Processing")
 
+        # Dismiss any open video player or dialog from a previous prompt
+        try:
+            page.keyboard.press("Escape")
+            page.wait_for_timeout(400)
+            page.keyboard.press("Escape")
+            page.wait_for_timeout(400)
+        except Exception:
+            pass
+
         # 1. Locate prompt input (ensure project is open)
         self.ensure_project_open(page)
 
@@ -432,6 +458,17 @@ class GoogleFlowAutomation:
             logger.error(err)
             self.prompt_manager.update_status(prompt_id, "Failed", error=err)
             return False
+
+        # Snapshot all pre-existing video URLs in the DOM before triggering new generation
+        known_video_urls: Set[str] = set()
+        try:
+            for i in range(page.locator("video").count()):
+                s = page.locator("video").nth(i).get_attribute("src")
+                if s:
+                    known_video_urls.add(s.strip())
+        except Exception:
+            pass
+        logger.info(f"Existing video URLs on page before generation: {len(known_video_urls)}")
 
         # 2. Enter prompt into ProseMirror / input element
         try:
@@ -466,15 +503,15 @@ class GoogleFlowAutomation:
         start_time = time.time()
         page.wait_for_timeout(5000)  # Initial grace period
 
-        # Sniff network responses for video streams (.mp4 or flow-content.google/video)
+        # Sniff network responses for FRESH video streams (.mp4 or flow-content.google/video)
         captured_stream_url: Optional[str] = None
         def on_response(response):
             nonlocal captured_stream_url
             try:
                 u = response.url
-                if ".mp4" in u or "flow-content.google/video" in u:
+                if (".mp4" in u or "flow-content.google/video" in u) and u.strip() not in known_video_urls:
                     captured_stream_url = u
-                    logger.info(f"Captured live video stream from network: {u[:60]}...")
+                    logger.info(f"Captured FRESH live video stream from network: {u[:60]}...")
             except Exception:
                 pass
 
@@ -495,25 +532,27 @@ class GoogleFlowAutomation:
                     self.prompt_manager.update_status(prompt_id, "Failed", error=error_detected)
                     return False
 
-                # Check if stream URL was captured directly
+                # Check if stream URL was captured directly (guaranteed fresh)
                 if captured_stream_url:
-                    logger.info("Direct video stream detected from Flow CDN!")
+                    logger.info("Direct fresh video stream detected from Flow CDN!")
                     generation_completed = True
                     break
 
-                # Check if video player or download button is already open
-                videos = page.locator("video")
-                downloads = page.locator("button[aria-label*='Download' i], a[aria-label*='Download' i], button:has-text('Download')")
+                # Check if a FRESH video element has appeared in the DOM
+                for i in range(page.locator("video").count()):
+                    src = page.locator("video").nth(i).get_attribute("src")
+                    if src and src.strip() not in known_video_urls and page.locator("video").nth(i).is_visible():
+                        logger.info("Fresh video element detected in player!")
+                        generation_completed = True
+                        break
 
-                if (videos.count() > 0 and videos.first.is_visible()) or (downloads.count() > 0 and downloads.first.is_visible()):
-                    logger.info("Video generation completed successfully!")
-                    generation_completed = True
+                if generation_completed:
                     break
 
-                # After 25 seconds of generation, try opening the canvas card
+                # Only after 30 seconds of real rendering, try opening the canvas card
                 elapsed = time.time() - start_time
-                if elapsed > 25:
-                    if self.try_open_canvas_card(page):
+                if elapsed > 30:
+                    if self.try_open_canvas_card(page, excluded_urls=known_video_urls):
                         logger.info("Video generation completed and modal opened!")
                         generation_completed = True
                         break
@@ -533,7 +572,16 @@ class GoogleFlowAutomation:
 
         # 5. Download and verify the video
         page.wait_for_timeout(3000)
-        saved_file = self.extract_and_download_video(page, prompt_item, direct_url=captured_stream_url)
+        saved_file = self.extract_and_download_video(page, prompt_item, direct_url=captured_stream_url, excluded_urls=known_video_urls)
+        
+        # Close player modal after download to leave canvas clean for subsequent prompts
+        try:
+            page.keyboard.press("Escape")
+            page.wait_for_timeout(300)
+            page.keyboard.press("Escape")
+        except Exception:
+            pass
+
         if saved_file and saved_file.exists():
             rel_path = str(saved_file.name)
             logger.info(f"Successfully saved and verified video: {rel_path}")
