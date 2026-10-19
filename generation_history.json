@@ -88,5 +88,139 @@
     "yt_uploaded": true,
     "yt_url": "https://youtube.com/shorts/o6vqJz5HpaA",
     "recorded_at": "2026-10-17T06:28:50.379323+00:00"
+  },
+  {
+    "car": "Lamborghini Revuelto",
+    "niche": "diecast",
+    "material": "Sunset Orange",
+    "color": "Sunset Orange",
+    "output_file": "video_010_sunset_orange_lamborghini_revuelto.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/7XpZ1B_9dLA",
+    "recorded_at": "2026-10-17T07:39:08.176536+00:00"
+  },
+  {
+    "car": "Natural Oak Supercar",
+    "niche": "wooden",
+    "material": "Natural Oak",
+    "color": "Natural Oak",
+    "output_file": "video_011_wooden_natural_oak_supercar.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/8RePrr6Haoo",
+    "recorded_at": "2026-10-17T07:39:08.176536+00:00"
+  },
+  {
+    "car": "Porsche 911 GT3 RS",
+    "niche": "diecast",
+    "material": "Pearl White",
+    "color": "Pearl White",
+    "output_file": "video_012_pearl_white_porsche_911_gt3_rs.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/J3dTZAVs5us",
+    "recorded_at": "2026-10-17T07:39:08.176536+00:00"
+  },
+  {
+    "car": "boxy 4x4 SUV",
+    "niche": "kinetic",
+    "material": "Crimson Red",
+    "color": "Crimson Red",
+    "output_file": "video_013_crimson_red_boxy_4x4_suv.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/Yrn09U33WFs",
+    "recorded_at": "2026-10-17T07:39:08.176536+00:00"
+  },
+  {
+    "car": "Electric Blue Supercar",
+    "niche": "diecast",
+    "material": "Electric Blue",
+    "color": "Electric Blue",
+    "output_file": "video_014_electric_blue_supercar.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/HSjc_eAKXy0",
+    "recorded_at": "2026-10-17T07:39:08.182970+00:00"
+  },
+  {
+    "car": "Light Maple Supercar",
+    "niche": "wooden",
+    "material": "Light Maple",
+    "color": "Light Maple",
+    "output_file": "video_015_wooden_light_maple_supercar.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/Oy5fbTJAP1U",
+    "recorded_at": "2026-10-17T07:39:08.184405+00:00"
+  },
+  {
+    "car": "Pearl White Supercar",
+    "niche": "diecast",
+    "material": "Pearl White",
+    "color": "Pearl White",
+    "output_file": "video_016_pearl_white_supercar.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/9_chXX00GUg",
+    "recorded_at": "2026-10-17T07:39:08.185078+00:00"
+  },
+  {
+    "car": "Warm Cherry Supercar",
+    "niche": "wooden",
+    "material": "Warm Cherry",
+    "color": "Warm Cherry",
+    "output_file": "video_017_wooden_warm_cherry_supercar.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/Y_K2nBzT4kQ",
+    "recorded_at": "2026-10-17T07:39:08.185420+00:00"
+  },
+  {
+    "car": "Nissan Skyline GT-R R34",
+    "niche": "diecast",
+    "material": "Midnight Purple",
+    "color": "Midnight Purple",
+    "output_file": "video_018_diecast_midnight_purple_nissan_skyline_gtr.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/C5mxVD0RwKs",
+    "recorded_at": "2026-10-19T01:41:09.336262+00:00"
+  },
+  {
+    "car": "Porsche 911 GT3 RS",
+    "niche": "diecast",
+    "material": "Racing Red",
+    "color": "Racing Red",
+    "output_file": "video_019_diecast_racing_red_porsche_911_gt3_rs.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/fKs95i0mZho",
+    "recorded_at": "2026-10-19T01:42:10.792766+00:00"
+  },
+  {
+    "car": "Toyota Supra MK4 Turbo",
+    "niche": "diecast",
+    "material": "Deep Emerald Green",
+    "color": "Deep Emerald Green",
+    "output_file": "video_020_diecast_deep_emerald_green_toyota_supra.mp4",
+    "yt_uploaded": true,
+    "yt_url": "https://youtube.com/shorts/lIdXrGrlvGg",
+    "recorded_at": "2026-10-19T01:45:51.261150+00:00"
+  },
+  {
+    "timestamp": "2026-10-19T01:49:39.269128+00:00",
+    "prompt_id": "78ee5388",
+    "car_model": "Audi R8 V10",
+    "color": "Pale Birch",
+    "niche": "Wooden Carving",
+    "video_file": "video_021_wooden_pale_birch_audi_r8.mp4",
+    "youtube_id": "-5r3kP8tHYg",
+    "youtube_url": "https://youtube.com/shorts/-5r3kP8tHYg",
+    "publish_at": "2026-10-20T14:30:00Z",
+    "md5": "CA334ADA3175184D2B0CA82C1039D721"
+  },
+  {
+    "timestamp": "2026-10-19T01:53:33.996712+00:00",
+    "prompt_id": "de13c8b5",
+    "car_model": "McLaren 765LT Spider",
+    "color": "Sunset Orange",
+    "niche": "Diecast Assembly",
+    "video_file": "video_022_diecast_sunset_orange_mclaren_765lt.mp4",
+    "youtube_id": "uFRqYdkysF8",
+    "youtube_url": "https://youtube.com/shorts/uFRqYdkysF8",
+    "publish_at": "2026-10-21T08:00:00Z",
+    "md5": "73DEC6894405A4313F6C107DF1722D2E"
   }
 ]

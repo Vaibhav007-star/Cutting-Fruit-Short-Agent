@@ -6,7 +6,7 @@ error detection, and automatic video downloading.
 import time
 import logging
 from pathlib import Path
-from typing import Optional, Callable, Dict, Any
+from typing import Optional, Callable, Dict, Any, Set
 
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 
@@ -311,49 +311,23 @@ class GoogleFlowAutomation:
                 if src and src.strip() not in excluded and video_locator.nth(i).is_visible():
                     return True
 
-        # 1. Direct HTML5 Canvas Coordinate Click (Flow cards are WebGL rendered)
+        # Direct click on the verified play button coordinate of the canvas card
         try:
             canvas = page.locator("canvas").first
             if canvas.is_visible():
-                coords_to_try = [(110, 300), (150, 320), (200, 300), (250, 350), (180, 280), (120, 260)]
-                for x, y in coords_to_try:
+                coords = [(50, 195), (60, 200)]
+                for x, y in coords:
                     page.mouse.click(x, y)
-                    page.wait_for_timeout(1200)
-                    for i in range(page.locator("video").count()):
-                        v_src = page.locator("video").nth(i).get_attribute("src")
-                        if v_src and v_src.strip() not in excluded:
-                            logger.info(f"Canvas card successfully opened at coordinates ({x}, {y}) with fresh video!")
-                            return True
-        except Exception as e:
-            logger.debug(f"Canvas coordinate click notice: {e}")
-
-        # 2. DOM-based fallbacks
-        card_selectors = [
-            "flow-media-card",
-            "flow-card",
-            "[data-node-id]",
-            "div[role='article']",
-            "div[class*='media-card' i]",
-            "button[aria-label*='Play' i]",
-        ]
-
-        for sel in card_selectors:
-            loc = page.locator(sel)
-            try:
-                cnt = loc.count()
-                if cnt > 0:
-                    target = loc.nth(cnt - 1)
-                    if target.is_visible():
-                        logger.info(f"Clicking latest canvas card with selector '{sel}'...")
-                        target.click(force=True)
-                        page.wait_for_timeout(1500)
+                    # Allow up to 5 seconds for video player hydration inside modal
+                    for _ in range(5):
+                        page.wait_for_timeout(1000)
                         for i in range(page.locator("video").count()):
                             v_src = page.locator("video").nth(i).get_attribute("src")
                             if v_src and v_src.strip() not in excluded:
-                                logger.info("Canvas card clicked successfully, fresh video player revealed!")
+                                logger.info(f"Canvas card successfully opened at ({x}, {y}) with fresh video: {v_src[:60]}...")
                                 return True
-            except Exception as e:
-                logger.debug(f"Selector '{sel}' click notice: {e}")
+        except Exception as e:
+            logger.debug(f"Canvas click notice: {e}")
 
         return False
 
@@ -549,15 +523,15 @@ class GoogleFlowAutomation:
                 if generation_completed:
                     break
 
-                # Only after 30 seconds of real rendering, try opening the canvas card
+                # Only after 60 seconds of real rendering, try opening the canvas card
                 elapsed = time.time() - start_time
-                if elapsed > 30:
+                if elapsed > 60:
                     if self.try_open_canvas_card(page, excluded_urls=known_video_urls):
                         logger.info("Video generation completed and modal opened!")
                         generation_completed = True
                         break
 
-                time.sleep(POLL_INTERVAL_SEC)
+                time.sleep(5)
         finally:
             try:
                 page.remove_listener("response", on_response)

@@ -51,7 +51,7 @@ class BrowserManager:
             headless=self.headless,
             channel=None,  # Playwright bundled chromium
             args=args,
-            no_viewport=True,
+            viewport={"width": 800, "height": 600},
             accept_downloads=True,
         )
 
@@ -67,6 +67,11 @@ class BrowserManager:
             self.page = self.context.pages[0]
         else:
             self.page = self.context.new_page()
+
+        try:
+            self.page.set_viewport_size({"width": 800, "height": 600})
+        except Exception:
+            pass
 
         self.page.set_default_timeout(self.timeout_sec * 1000)
         return self.context, self.page
