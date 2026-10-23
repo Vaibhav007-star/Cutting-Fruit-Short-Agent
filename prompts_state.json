@@ -436,11 +436,13 @@
   {
     "id": "symbiote_001",
     "prompt": "Vertical 9:16 photorealistic CGI video, exactly 8 seconds in a dark underground parking garage with yellow-and-black striped concrete pillars, overhead fluorescent tubes, and a wet reflective concrete floor. Low fixed ground-level camera, moody low-key lighting with warm accents: [0.0-2.0s] a glossy black liquid-metal symbiote goo with spiky tendrils rapidly slides across wet concrete and wraps around a small silver emblem, swallowing it into a rising mound; [2.0-4.0s] thick tentacles spread and knot together, solidifying into a rugged black ladder-frame chassis, coilover springs, and massive knobby all-terrain tires; [4.0-6.0s] viscous black goo surges upward, sculpting the boxy 4x4 off-road SUV body, vertical-slat grille, and red tow hooks as the glossy liquid smoothly cures into a flawless matte-black finish; [6.0-8.0s] the completed matte-black boxy 4x4 sits perfectly still as round LED halo headlights and amber indicators ignite with vivid reflections across the wet floor, holding steady final hero frame. Fluid liquid-metal viscosity, consistent underground garage setting throughout, shallow depth of field, diegetic ASMR wet squelching, metallic formation clicks, soft settling whoosh, low engine rumble, and headlight chime only, no music, no voice. Negative: people, faces, visible person, text, licence plates, logos, watermark, cartoon style, camera shake, inconsistent car shape, parts appearing without goo, flicker.",
-    "status": "Completed",
+    "status": "ReadyToUpload",
     "output_file": "output_videos/video_033_symbiote_matte_black_4x4_offroader.mp4",
     "youtube_id": null,
     "publish_at": null,
     "created_at": "2026-10-23T06:35:28.220123+00:00",
-    "updated_at": "2026-10-23T06:35:28.220123+00:00"
+    "updated_at": "2026-10-23T06:35:28.220123+00:00",
+    "target_publish_at": "2026-10-27T14:30:00Z",
+    "error": "YouTube daily upload quota reached (10/10 uploaded today). Ready for automatic upload on quota reset."
   }
 ]

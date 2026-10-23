@@ -84,7 +84,9 @@ class HistoryManager:
         f_lower = (filename or "").lower()
 
         # 1. Detect Niche
-        if "restoration" in p_lower or "moss" in p_lower or "rusty" in p_lower or "scalpel" in p_lower or "restoration" in f_lower:
+        if "symbiote" in p_lower or "liquid-metal" in p_lower or "liquid metal" in p_lower or "symbiote" in f_lower or "goo" in p_lower:
+            matched_niche = "symbiote"
+        elif "restoration" in p_lower or "moss" in p_lower or "rusty" in p_lower or "scalpel" in p_lower or "restoration" in f_lower:
             matched_niche = "restoration"
         elif "shipping container" in p_lower or "bolt cutters" in p_lower or "container" in p_lower or "container" in f_lower:
             matched_niche = "container"

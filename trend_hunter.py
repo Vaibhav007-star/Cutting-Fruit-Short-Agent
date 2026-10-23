@@ -225,6 +225,15 @@ def format_restoration_prompt(car_name: str = "BMW M4 Coupe", color: str = "Mirr
     return prompt
 
 
+def format_symbiote_prompt(car_name: str = "Boxy 4x4 Off-Roader", material: str = "Matte Black") -> str:
+    """Formats a vehicle into the 8-second symbiote liquid-metal transformation niche."""
+    clean_car = car_name.strip()
+    clean_mat = material.strip() or "Matte Black"
+    return (
+        f"Vertical 9:16 photorealistic CGI video, exactly 8 seconds in a dark underground parking garage with yellow-and-black striped concrete pillars, overhead fluorescent tubes, and a wet reflective concrete floor. Low fixed ground-level camera, moody low-key lighting with warm accents: [0.0-2.0s] a glossy black liquid-metal symbiote goo with spiky tendrils rapidly slides across wet concrete and wraps around a small silver emblem, swallowing it into a rising mound; [2.0-4.0s] thick tentacles spread and knot together, solidifying into a rugged black ladder-frame chassis, coilover springs, and massive knobby all-terrain tires; [4.0-6.0s] viscous black goo surges upward, sculpting the {clean_car} body, vertical-slat grille, and red tow hooks as the glossy liquid smoothly cures into a flawless {clean_mat} finish; [6.0-8.0s] the completed {clean_mat} {clean_car} sits perfectly still as round LED halo headlights and amber indicators ignite with vivid reflections across the wet floor, holding steady final hero frame. Fluid liquid-metal viscosity, consistent underground garage setting throughout, shallow depth of field, diegetic ASMR wet squelching, metallic formation clicks, soft settling whoosh, low engine rumble, and headlight chime only, no music, no voice. Negative: people, faces, visible person, text, licence plates, logos, watermark, cartoon style, camera shake, inconsistent car shape, parts appearing without goo, flicker."
+    )
+
+
 class TrendHunter:
     """Discovers viral automotive trends and converts them into multi-niche production prompts."""
 
@@ -610,6 +619,8 @@ class TrendHunter:
                     prompt_text = format_container_unboxing_prompt(car_name, material)
                 elif niche in ("restoration", "restore", "miniature_restoration"):
                     prompt_text = format_restoration_prompt(car_name, material)
+                elif niche in ("symbiote", "liquid_metal", "goo"):
+                    prompt_text = format_symbiote_prompt(car_name, material)
                 else:
                     prompt_text = format_short_video_prompt(car_name, material)
 
