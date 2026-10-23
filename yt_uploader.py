@@ -153,6 +153,14 @@ class YouTubeSEO:
         "Rate this miniature {car} restoration 1-10? 🔥 #Shorts",
     ]
 
+    SYMBIOTE_HOOKS = [
+        "Black Symbiote Goo Morphs into a 4x4 Off-Roader! 🧬🔥 #Shorts",
+        "Liquid Metal Forms a Matte Black {car} in 8s! ⚡ #Shorts",
+        "Wait for the LED headlights to turn on... {car} 💡 #Shorts",
+        "Most Satisfying Symbiote Liquid-Metal Car Transformation 🤤 #Shorts",
+        "Rate this liquid metal {car} build 1-10? 🔥 #Shorts",
+    ]
+
     @classmethod
     def extract_metadata(cls, prompt: str = "", filename: str = "") -> tuple[str, str, str]:
         """Extracts (car_name, niche, material) from prompt text or filename."""
@@ -185,11 +193,29 @@ class YouTubeSEO:
             hooks = cls.CONTAINER_HOOKS
         elif niche_lower in ("restoration", "restore", "miniature_restoration"):
             hooks = cls.RESTORATION_HOOKS
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            hooks = cls.SYMBIOTE_HOOKS
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            hooks = cls.SYMBIOTE_HOOKS
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
+            )
         else:
             hooks = cls.DIECAST_HOOKS
 
         if variant_idx is None:
             variant_idx = abs(hash(car_name)) % len(hooks)
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
+            )
         else:
             variant_idx = variant_idx % len(hooks)
 
@@ -260,6 +286,13 @@ class YouTubeSEO:
                 f"🎧 Wear headphones for the best binaural scalpel scrapes, tweezers clicks, and airbrush spray hisses!\n\n"
                 f"💬 Which rusty classic should we restore next? Drop your pick below! 👇\n\n"
                 f"#Shorts #ASMR #Restoration #CarRestoration #MiniatureCar #{car_tag} #Satisfying #Viral"
+            )
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
             )
         else:
             desc = (
@@ -472,6 +505,13 @@ class YouTubeSEO:
                 car_tag,
                 "binaural ASMR",
             ]
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
+            )
         else:
             candidates = [
                 "Shorts",
@@ -541,7 +581,14 @@ class YouTubeUploader:
                 if not all(s in token_scopes for s in SCOPES):
                     logger.info("Existing token.json lacks full YouTube management scope. Re-authorizing...")
                     self.credentials = None
-                else:
+                elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
+            )
+        else:
                     self.credentials = Credentials.from_authorized_user_file(str(self.token_file), SCOPES)
             except Exception as e:
                 logger.warning(f"Could not load existing token: {e}")
@@ -632,6 +679,13 @@ class YouTubeUploader:
             status_body["privacyStatus"] = "private"
             status_body["publishAt"] = publish_at
             upload_mode = f"Scheduled for {publish_at}"
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
+            )
         else:
             status_body["privacyStatus"] = privacy_status
             upload_mode = f"Privacy: {privacy_status}"
@@ -870,6 +924,13 @@ def main():
         )
         if res.get("publish_at"):
             print(f"[SUCCESS] Uploaded and SCHEDULED for {res['publish_at']}: {res['url']}")
+        elif niche_lower in ("symbiote", "liquid_metal", "goo"):
+            desc = (
+                f"Satisfying CGI symbiote liquid-metal transformation into a rugged matte black {car_name}! 🧬🔥\n"
+                f"🎧 Wear headphones for the best binaural wet squelches, liquid slithers, and LED headlight ignition!\n\n"
+                f"💬 Which vehicle should the symbiote liquid metal build next? Drop your pick in the comments below! 👇\n\n"
+                f"#Shorts #ASMR #Symbiote #LiquidMetal #CGI #CarTransformation #{car_tag} #Satisfying #Viral"
+            )
         else:
             print(f"[SUCCESS] Uploaded to YouTube Shorts ({res['privacy_status']}): {res['url']}")
         return

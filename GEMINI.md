@@ -31,6 +31,7 @@ All prompts MUST be synthesized using the established, tested template specifica
 | **Kinetic Gadget** | [`kinetic_gadget_transformation.md`](prompt_templates/kinetic_gadget_transformation.md) | Living room granite table | Push-button spring burst unfolds 1:18 scale model |
 | **Container Unboxing**| [`container_unboxing_peel.md`](prompt_templates/container_unboxing_peel.md) | Dark walnut workbench | Bolt cutters snip seal, tray slide, film peel, exhaust flame |
 | **Miniature Restoration** | [`miniature_car_restoration.md`](prompt_templates/miniature_car_restoration.md) | Clean white-grey tabletop | Scalpel & tweezers moss scrape, airbrush coat, water bead hero |
+| **Symbiote Liquid Metal** | [`symbiote_liquid_metal_transformation.md`](prompt_templates/symbiote_liquid_metal_transformation.md) | Dark underground garage | Viscous black liquid-metal goo morphs into matte 4x4 |
 
 ---
 
