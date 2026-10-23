@@ -7,7 +7,6 @@ import time
 import logging
 from pathlib import Path
 from typing import Optional, Dict, Any, List
-from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 
 from meta_browser_manager import MetaBrowserManager
 from config import BASE_DIR, LOGS_DIR
@@ -115,7 +114,7 @@ class MetaReelsAutomation:
 
         # 1. Navigate to Reels Composer
         self.browser_manager.navigate_to_reels_composer()
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(6000)
 
         # 2. Verify login state
         if not self.browser_manager.is_logged_in():
@@ -124,14 +123,15 @@ class MetaReelsAutomation:
             self.browser_manager.close()
             return {"success": False, "error": err}
 
-        # 3. Inject video file into file input
-        logger.info("Uploading video file to composer...")
+        # 3. Attach video file
+        logger.info("Attaching video file to composer...")
         try:
-            file_input = page.locator("input[type='file'][accept*='video'], input[type='file']").first
-            file_input.wait_for(state="attached", timeout=30000)
-            file_input.set_input_files(str(video_file))
-            logger.info("Video file attached. Waiting for video processing preview...")
-            page.wait_for_timeout(10000)
+            add_btn = page.get_by_role("button", name="Add video").first
+            with page.expect_file_chooser(timeout=25000) as fc_info:
+                add_btn.click()
+            fc_info.value.set_files(str(video_file))
+            logger.info("Video file attached. Waiting 15s for video upload & audio processing...")
+            page.wait_for_timeout(15000)
         except Exception as e:
             logger.error(f"Failed to attach video file: {e}")
             self.browser_manager.close()
@@ -140,9 +140,7 @@ class MetaReelsAutomation:
         # 4. Fill in Caption / Description
         logger.info("Entering Reel caption and hashtags...")
         try:
-            caption_box = page.locator(
-                "div[role='textbox'], div[contenteditable='true'], textarea[placeholder*='caption' i], textarea[aria-label*='caption' i]"
-            ).first
+            caption_box = page.locator("div[role='textbox'], div[contenteditable='true'], textarea").first
             caption_box.wait_for(state="visible", timeout=20000)
             caption_box.click()
             page.wait_for_timeout(500)
@@ -157,61 +155,63 @@ class MetaReelsAutomation:
             thumb_file = Path(thumbnail_path).resolve()
             logger.info(f"Setting custom Reel cover: {thumb_file.name}...")
             try:
-                # Look for 'Choose cover', 'Cover', or image file input
-                cover_btn = page.locator("button:has-text('Choose cover'), div:has-text('Upload image'), button:has-text('Cover')").first
-                if cover_btn.is_visible():
-                    cover_btn.click()
-                    page.wait_for_timeout(1500)
-
-                img_input = page.locator("input[type='file'][accept*='image']").first
-                if img_input.count() > 0:
-                    img_input.set_input_files(str(thumb_file))
-                    page.wait_for_timeout(2000)
-                    logger.info("Cover thumbnail uploaded.")
+                upload_img_btn = page.get_by_role("button", name="Upload image").first
+                if upload_img_btn.is_visible():
+                    with page.expect_file_chooser(timeout=15000) as fc_info:
+                        upload_img_btn.click()
+                    fc_info.value.set_files(str(thumb_file))
+                    page.wait_for_timeout(3000)
+                    logger.info("Cover thumbnail uploaded successfully.")
             except Exception as e:
                 logger.debug(f"Notice setting custom cover: {e}")
 
-        # 6. Proceed to Scheduling Step
-        # Meta Reels composer often has 'Next' buttons for: Video -> Edit -> Publish/Schedule
-        logger.info("Navigating through composer steps (Next)...")
-        for _ in range(3):
-            next_btn = page.locator("button:has-text('Next'), div[role='button']:has-text('Next')").first
-            if next_btn.is_visible():
-                next_btn.click()
-                page.wait_for_timeout(2000)
-
-        # 7. Select 'Schedule' option
-        if schedule_time_str:
-            logger.info(f"Configuring schedule options for {schedule_time_str}...")
-            try:
-                sched_radio = page.locator(
-                    "input[value='SCHEDULE'], div[role='radio']:has-text('Schedule'), label:has-text('Schedule')"
-                ).first
-                if sched_radio.is_visible():
-                    sched_radio.click()
-                    page.wait_for_timeout(1000)
-            except Exception as e:
-                logger.warning(f"Notice clicking schedule radio: {e}")
-
-        # 8. Submit / Schedule Reel
-        logger.info("Submitting Reel (Schedule / Publish)...")
-        published = False
+        # 6. Click Next: Step 1 (Create) -> Step 2 (Edit)
+        logger.info("Navigating to Step 2 (Edit)...")
         try:
-            submit_btn = page.locator(
-                "button:has-text('Schedule'), div[role='button']:has-text('Schedule'), button:has-text('Publish'), div[role='button']:has-text('Publish')"
-            ).first
-            if submit_btn.is_visible():
-                submit_btn.click()
-                logger.info("Clicked Schedule/Publish button. Waiting for confirmation...")
-                page.wait_for_timeout(10000)
-                published = True
+            page.get_by_role("button", name="Next").last.click()
+            page.wait_for_timeout(4000)
         except Exception as e:
-            logger.error(f"Failed clicking Schedule button: {e}")
+            logger.warning(f"Step 2 navigation note: {e}")
+
+        # 7. Click Next: Step 2 (Edit) -> Step 3 (Share / Schedule)
+        logger.info("Navigating to Step 3 (Share / Schedule)...")
+        try:
+            page.get_by_role("button", name="Next").last.click()
+            page.wait_for_timeout(4000)
+        except Exception as e:
+            logger.warning(f"Step 3 navigation note: {e}")
+
+        # 8. Select 'Schedule' or 'Share now'
+        scheduled_success = False
+        try:
+            if schedule_time_str:
+                logger.info("Selecting 'Schedule' option...")
+                sched_btn = page.get_by_role("button", name="Schedule").first
+                if sched_btn.is_visible():
+                    sched_btn.click()
+                    page.wait_for_timeout(2000)
+
+                # Submit schedule
+                submit_btn = page.get_by_role("button", name="Schedule").last
+                if submit_btn.is_visible():
+                    submit_btn.click()
+                    logger.info("Clicked 'Schedule' button! Waiting for confirmation...")
+                    page.wait_for_timeout(12000)
+                    scheduled_success = True
+            else:
+                logger.info("Submitting Reel (Share)...")
+                share_btn = page.get_by_role("button", name="Share").last
+                if share_btn.is_visible():
+                    share_btn.click()
+                    logger.info("Clicked 'Share' button! Waiting for confirmation...")
+                    page.wait_for_timeout(12000)
+                    scheduled_success = True
+        except Exception as e:
+            logger.error(f"Failed to submit Reel: {e}")
 
         self.browser_manager.close()
         return {
-            "success": published,
+            "success": scheduled_success,
             "video": video_file.name,
             "scheduled_time": schedule_time_str,
         }
-
