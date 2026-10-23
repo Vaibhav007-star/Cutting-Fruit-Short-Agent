@@ -11,6 +11,7 @@ __pycache__/
 
 # Sensitive browser profile & session data
 .browser_data/
+.meta_browser_data/
 *.session
 cookies.json
 
