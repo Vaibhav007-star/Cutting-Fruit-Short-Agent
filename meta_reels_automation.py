@@ -185,18 +185,56 @@ class MetaReelsAutomation:
         scheduled_success = False
         try:
             if schedule_time_str:
-                logger.info("Selecting 'Schedule' option...")
+                logger.info(f"Selecting 'Schedule' option for: {schedule_time_str}...")
                 sched_btn = page.get_by_role("button", name="Schedule").first
                 if sched_btn.is_visible():
                     sched_btn.click()
                     page.wait_for_timeout(2000)
+
+                # Parse datetime (e.g. '2026-10-24 13:30' or ISO format)
+                try:
+                    import datetime
+                    dt = None
+                    for fmt in ("%Y-%m-%d %H:%M", "%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M:%S"):
+                        try:
+                            dt = datetime.datetime.strptime(schedule_time_str, fmt)
+                            break
+                        except ValueError:
+                            pass
+                    if dt:
+                        # 1. Date
+                        date_str = dt.strftime("%d/%m/%Y")
+                        date_inp = page.locator("input[placeholder*='dd/mm/yyyy']").first
+                        if date_inp.is_visible():
+                            date_inp.click()
+                            page.keyboard.press("Control+A")
+                            page.keyboard.type(date_str)
+                            page.keyboard.press("Enter")
+                            page.wait_for_timeout(500)
+
+                        # 2. Hours & Minutes
+                        hours_inp = page.locator("input[aria-label='hours']").first
+                        minutes_inp = page.locator("input[aria-label='minutes']").first
+                        if hours_inp.is_visible():
+                            hours_inp.click()
+                            page.keyboard.press("Control+A")
+                            page.keyboard.type(dt.strftime("%H"))
+                            page.wait_for_timeout(300)
+                        if minutes_inp.is_visible():
+                            minutes_inp.click()
+                            page.keyboard.press("Control+A")
+                            page.keyboard.type(dt.strftime("%M"))
+                            page.wait_for_timeout(300)
+                        logger.info(f"Configured schedule picker to: {date_str} {dt.strftime('%H:%M')}")
+                except Exception as ex:
+                    logger.warning(f"Could not fill custom schedule time, using default: {ex}")
 
                 # Submit schedule
                 submit_btn = page.get_by_role("button", name="Schedule").last
                 if submit_btn.is_visible():
                     submit_btn.click()
                     logger.info("Clicked 'Schedule' button! Waiting for confirmation...")
-                    page.wait_for_timeout(12000)
+                    page.wait_for_timeout(14000)
                     scheduled_success = True
             else:
                 logger.info("Submitting Reel (Share)...")

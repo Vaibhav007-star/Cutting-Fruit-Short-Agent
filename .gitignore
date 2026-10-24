@@ -27,6 +27,10 @@ logs/*.log
 output_videos/*.mp4
 output_videos/*.webm
 output_videos/thumbnails/
+downloaded_shorts/*.mp4
+downloaded_shorts/*.m4a
+downloaded_shorts/thumbnails/
+*.png
 
 # Streamlit config / cache
 .streamlit/
