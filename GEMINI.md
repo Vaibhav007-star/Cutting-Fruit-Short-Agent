@@ -40,5 +40,14 @@ All prompts MUST be synthesized using the established, tested template specifica
 - **Privacy**: Always `private` with ISO 8601 `publishAt` timestamp.
 - **Thumbnails**: Always score frames using `thumbnail_generator.py` and upload the highest engagement score hero frame (favoring 6.5s-7.6s hero reveals).
 - **SEO**: Clean all hashtags from YouTube Data API tags (API requirement: no `#` symbols in tag array). Always include `#Shorts` in the title.
-- **Disk Cleanliness**: Keep local storage lean; once a video is uploaded and scheduled, raw `.mp4` files can be cleaned from `output_videos/` since master records are preserved in `prompts_state.json` and `generation_history.json`.
+- **Disk Cleanliness & Space Maintenance**: Keep local laptop storage lean and uncluttered. ALWAYS delete all intermediate raw clips (`clip_*.mp4`, `video_*.mp4`) from `output_videos/` as soon as they are merged into the master Short or scheduled/uploaded. Only preserve the final master video and its best thumbnail (`*_best.jpg`). Candidate thumbnails (`*_thumb_*.jpg`) must be purged immediately.
+
+---
+
+## 5. 🧹 AUTOMATIC RAW CLIP PURGE ON UPLOAD & MERGE
+- **Zero Raw File Accumulation**: After stitching a multi-beat Short or scheduling/publishing a Short/Reel:
+  - Automatically delete all source clips (e.g. `clip_01_*.mp4`, `clip_02_*.mp4`, `clip_03_*.mp4`, `clip_04_*.mp4`, `clip_05_*.mp4`).
+  - Purge temporary concat files (`*.tmp.txt`).
+  - Purge candidate frame thumbnails, keeping only the final hero thumbnail (`*_best.jpg`).
+  - Ensure the user's laptop drive never runs low on disk space.
 

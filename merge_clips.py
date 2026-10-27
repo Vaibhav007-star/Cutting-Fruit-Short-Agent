@@ -243,6 +243,18 @@ def merge_clips_with_subtitles(
         return False
 
 
+def purge_raw_clips(clip_paths: List[Path]) -> None:
+    """Deletes intermediate raw clip files to preserve laptop disk space."""
+    for p in clip_paths:
+        try:
+            path_obj = Path(p)
+            if path_obj.exists() and path_obj.is_file():
+                path_obj.unlink(missing_ok=True)
+                logger.info(f"🧹 Cleaned raw clip to preserve disk space: {path_obj.name}")
+        except Exception as e:
+            logger.warning(f"Could not delete raw clip {p}: {e}")
+
+
 def auto_merge_sequence_from_state(
     target_count: int = 5,
     output_filename: str = "cut_count_40s_lime_master.mp4",
@@ -298,6 +310,7 @@ def auto_merge_sequence_from_state(
         logger.info(f"🎉 MASTER SHORT CREATED AUTOMATICALLY: {out_master.name}")
         logger.info(f"Total Duration: {total_dur:.2f}s | Path: {out_master}")
         logger.info(f"============================================================")
+        purge_raw_clips(completed_clips)
         return out_master
 
     return None
@@ -318,7 +331,10 @@ def auto_merge_latest_files(count: int = 5, output_name: str = "cut_count_40s_li
         success = merge_clips_with_subtitles(selected, out_file)
     else:
         success = merge_clips_lossless(selected, out_file)
-    return out_file if success else None
+    if success:
+        purge_raw_clips(selected)
+        return out_file
+    return None
 
 
 if __name__ == "__main__":
