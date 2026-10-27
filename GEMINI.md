@@ -4,16 +4,24 @@ These instructions are persistent rules for all video generation, trend hunting,
 
 ---
 
-## 1. ⏱️ HARD DURATION CONSTRAINT: EXACTLY 8.0 SECONDS
-- **Every prompt generated MUST strictly target 8.0 seconds** in Google Flow (Veo).
-- **Structure**: Always use the locked **4-Beat 2.0-Second Architecture**:
-  - `[0.0s - 2.0s]` **Beat 1 (The Hook)**: High-impact action hook (e.g. hobby nippers sprue cut, button trigger, bolt-cutter snip, impact-driver whirr).
-  - `[2.0s - 4.0s]` **Beat 2 (Core Assembly/Carving)**: Primary chassis, body sculpting, or transit film peel.
-  - `[4.0s - 6.0s]` **Beat 3 (Detail & Interior Fit)**: Fine tools, wheel torque, interior plastic peel, or key turn.
-  - `[6.0s - 8.0s]` **Beat 4 (Hero Reveal & LED Ignition)**: Headlights/taillights flare to life, exhaust sound/flame pop, holding steady hero shot.
-- **Aspect Ratio & Resolution**: **ALWAYS Vertical 9:16 Full HD (`1080x1920` @ 1080p)**. All videos downloaded and merged from Google Flow MUST ALWAYS be exported and processed in **1080p Full HD (`1080x1920`)** with native 1080p typography and Lanczos multi-tap scaling. Never publish or output videos in 720p.
-- **Audio**: Close-mic diegetic ASMR only (mechanical clicks, ratchets, carving scrapes, vinyl hisses, startup chimes). No background music, no voiceover.
-- **Negative Constraints**: Always include: `No face, no visible person, no text, no captions, no logos, no watermark, no extra fingers, no deformed hands, no cartoon look, no morphing or melting shapes, no camera jitter, no background changing.`
+## 1. ⏱️ 40.0-SECOND MASTER SHORT ARCHITECTURE (5 × 8.0s CLIPS)
+- **Every master Short MUST be exactly 40.0 seconds**, composed of **5 sequential 8.0-second clips** generated in Google Flow (Veo) and stitched together with [`merge_clips.py`](file:///c:/Projects/Cutting_Automate/merge_clips.py).
+- **The 5-Tier Cut Count Progression**:
+  - `[0.0s - 8.0s]` **Tier 1 (1 CUT)**: Pristine floating item sliced by a vertical blade into halves and 4 wedges.
+  - `[8.0s - 16.0s]` **Tier 2 (25 CUTS)**: Diagonal blade flurry etching cut seams, bursting into 25 geometric chunks.
+  - `[16.0s - 24.0s]` **Tier 3 (100 CUTS)**: Slicing grid across XYZ axes, shattering into uniform 3mm micro-cubes.
+  - `[24.0s - 32.0s]` **Tier 4 (1,000 CUTS)**: Microscopic cut mesh, disintegrating into paper-thin pulp confetti mound.
+  - `[32.0s - 40.0s]` **Tier 5 (25,000 CUTS & Loop)**: Hyper-speed kinetic blur atomizing into silky kinetic sand, with a seamless match-dissolve reset loop.
+- **On-Screen Subtitles & Cut Count Badges**:
+  - Every 40s master video MUST have bold, high-contrast typography burned via FFmpeg (`merge_clips_with_subtitles`):
+    - Segment 1: **"1 CUT"**
+    - Segment 2: **"25 CUTS"**
+    - Segment 3: **"100 CUTS"**
+    - Segment 4: **"1,000 CUTS"**
+    - Segment 5: **"25,000 CUTS"**
+- **Aspect Ratio & Resolution**: **ALWAYS Vertical 9:16 Full HD (`1080x1920` @ 1080p 60fps)** with Lanczos multi-tap scaling. Never output in 720p.
+- **Audio**: Close-mic diegetic ASMR only (blade whooshes, juicy pops, wet slices, pouring beads, sand hiss). No background music, no voiceover.
+- **Negative Constraints (AI Prompt)**: Always include `no text, no captions, no logos, no watermark` in the AI generation prompts (subtitles are burned natively in post-processing via FFmpeg for crystal-clear 1080p typography).
 
 ---
 

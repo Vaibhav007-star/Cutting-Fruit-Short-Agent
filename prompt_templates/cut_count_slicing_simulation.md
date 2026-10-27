@@ -17,11 +17,10 @@
 Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy matte-green lime with realistic skin pores floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from the upper-left, subtle rim light on the fruit silhouette, soft warm drop-shadow on the cutting board. Razor-thin silver blade streaks pass with motion blur through the lime, etching crisp cream-white cut seams into the rind. Completely static camera, zero jitter. No hands, no people, no text, no watermark, no logo, no morphing shapes, no cartoon textures.
 ```
 
----
-
 ## ⏱️ 5-Clip 40-Second Master Generation Sequence
 
 ### Clip 1 (0.0s – 8.0s): Tier 1 — 1 Cut & 4 Wedges (The Hook)
+- **On-Screen Subtitle**: `"1 CUT"` (Burned in 1080p bold uppercase via FFmpeg)
 ```text
 Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy matte-green lime with realistic skin pores floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from upper-left, rim light, warm shadow. Completely static camera.
 [0.0s-2.0s] The pristine lime hovers motionless above the wooden board. A single high-speed vertical silver blade streaks downward through the center, leaving a glowing hairline cream seam along the equator.
@@ -33,6 +32,7 @@ Negative: human hands, fingers, floating handles, text, watermark, cartoon look,
 ```
 
 ### Clip 2 (8.0s – 16.0s): Tier 2 — 25 Cuts (Geometric Chunks)
+- **On-Screen Subtitle**: `"25 CUTS"` (Burned in 1080p bold uppercase via FFmpeg)
 ```text
 Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy matte-green lime with realistic skin pores floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from upper-left, rim light, warm shadow. Completely static camera.
 [0.0s-2.0s] A fresh lime floats suspended above the empty oak board. High-frequency silver blades streak rapidly from alternating diagonal angles through the fruit.
@@ -44,17 +44,19 @@ Negative: hands, fingers, knives stuck in fruit, text, logo, morphing geometry, 
 ```
 
 ### Clip 3 (16.0s – 24.0s): Tier 3 — 100 Cuts (Micro-Cubes)
+- **On-Screen Subtitle**: `"100 CUTS"` (Burned in 1080p bold uppercase via FFmpeg)
 ```text
 Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy matte-green lime with realistic skin pores floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from upper-left, rim light, warm shadow. Completely static camera.
 [0.0s-2.0s] A fresh lime hovers steadily above the board. A dense barrage of rapid silver slicing planes sweeps across X, Y, and Z axes.
 [2.0s-4.5s] A dense grid of 100 thin white wireframe cut seams rapidly etches into the green rind, transforming the surface into a fine checkered pattern.
-[4.5s-6.5s] The fruit shatters outward into thousands of uniform 3mm green-and-white cubic pieces, accompanied by a pressurized puff of citrus vapor.
+[4.5-6.5s] The fruit shatters outward into thousands of uniform 3mm green-and-white cubic pieces, accompanied by a pressurized puff of citrus vapor.
 [6.5s-8.0s] The miniature cubes cascade down through the air like loose plastic beads, pouring into a clean, level mound on the wooden board. Hold steady on the settled cube pile.
 Audio: ultra-fast slicing flurry, rising ticking mechanical rhythm, crisp shattering crunch, fluid pouring sound of tiny cubes piling up. No music, no voice.
 Negative: hands, distorted blades, text, watermark, cartoon look, camera movement, melted shapes.
 ```
 
 ### Clip 4 (24.0s – 32.0s): Tier 4 — 1,000 Cuts (Pulp Confetti)
+- **On-Screen Subtitle**: `"1,000 CUTS"` (Burned in 1080p bold uppercase via FFmpeg)
 ```text
 Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy matte-green lime with realistic skin pores floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from upper-left, rim light, warm shadow. Completely static camera.
 [0.0s-2.0s] A fresh lime floats above the board. An ultrasonic flurry of blades creates a continuous shimmering silver halo of motion blur around the sphere.
@@ -66,6 +68,7 @@ Negative: hands, limbs, text, subtitles, brand logos, camera wobble, melting art
 ```
 
 ### Clip 5 (32.0s – 40.0s): Tier 5 — 25,000 Cuts & Infinite Loop Point (Kinetic Dust)
+- **On-Screen Subtitle**: `"25,000 CUTS"` (Burned in 1080p bold uppercase via FFmpeg)
 ```text
 Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy matte-green lime with realistic skin pores floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from upper-left, rim light, warm shadow. Completely static camera.
 [0.0s-2.0s] A fresh lime floats above the board. The blades reach hyper-speed, appearing as a pure white kinetic blur envelope surrounding the fruit.
