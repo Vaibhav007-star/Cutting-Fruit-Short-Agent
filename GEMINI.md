@@ -26,10 +26,27 @@ All prompts MUST be synthesized using the established, tested template specifica
 
 ---
 
-## 3. 🎯 AUDIENCE & MARKET-DRIVEN NICHE SELECTION
-- Always use `trend_hunter.py` with channel performance data (`--audience`) and Google Trends to discover the hottest car model and niche.
-- **Anti-Repetition Rule**: Never repeat a car model in the same color/material within the same niche. Verify against `generation_history.json`.
-- Rotate through top-performing niches according to audience retention velocity.
+## 3. 🎯 VIRAL ITEM SELECTION & STRICT ANTI-REPETITION (INSTAGRAM & SHORTS PRIORITY)
+- **High Cultural Virality & Visual Distinction**:
+  - Every master prompt MUST feature an item that is **instantly recognizable, aesthetically mesmerizing, and proven high-velocity on Instagram Reels and YouTube Shorts**.
+  - Must have **dramatic color contrast** between outer shell and inner pulp/substance to maximize visual engagement in vertical 9:16 feeds.
+  - **Tier-1 Viral Item Catalogue**:
+    1. **Dragon Fruit (Pitaya)**: Vivid magenta exterior scales, crisp snow-white pulp with black speckled seeds, neon juice spray.
+    2. **Watermelon**: Deep forest-green striped rind, vibrant crimson core, obsidian seeds, crisp hydraulic fracture.
+    3. **Viral Dubai Pistachio Chocolate Bar**: Crisp dark-chocolate shell, bright emerald knafeh pistachio cream filling.
+    4. **Ruby Pomegranate**: Burnished crimson husk, ruby jewel arils bursting under blade pressure with red mist.
+    5. **Golden Honeycomb Slab**: Hexagonal amber wax grid oozing thick golden liquid honey.
+    6. **Amethyst Crystal Geode**: Rugged grey stone exterior shatters into glistening violet quartz crystal prisms.
+    7. **Alphonso Mango**: Glossy saffron skin, velvety golden pulp with ultra-clean razor slice seams.
+    8. **Hass Avocado**: Dark pebbled skin, creamy lime-to-yellow gradient, glistening spherical mahogany pit.
+    9. **Golden Coconut**: Fibrous brown husk split revealing immaculate white meat and splashing coconut water.
+    10. **Layered Kinetic Sand Sphere**: Concentric rainbow-striped rings crumbling into micro-fine silky sand.
+    11. **Glossy Glass Candy Apple**: Translucent ruby candy shell cracking like tempered glass over a crisp Granny Smith apple.
+    12. **Zespri Golden Kiwi**: Fuzzy bronze skin, sunburst gold interior with jet-black seed ring.
+- **Strict Anti-Repetition Enforcement**:
+  - **NEVER repeat an item** that has already been generated.
+  - Before generating any prompt, inspect `generation_history.json` and `instagram_state.json`.
+  - Rotate through the Tier-1 Viral Catalogue so every master Short introduces a completely fresh, high-retention spectacle.
 
 ---
 

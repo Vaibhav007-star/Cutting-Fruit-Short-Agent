@@ -76,3 +76,37 @@ Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender ph
 Audio: escalating supersonic whirr, deep bass-drop burst, soft kinetic sand settling hiss, complete brief silence at reset. No music, no voice.
 Negative: hands, fingers, text, watermark, cartoon look, camera pan/tilt, flickering lights.
 ```
+
+---
+
+## 🌟 Tier-1 High-Visibility Viral Item Catalogue (Instagram & Shorts Priority)
+
+> **Persistent Rule**: Never repeat an item across generations. Always pick from culturally recognized, viral, high-contrast objects that drive massive retention on Instagram Reels and TikTok.
+
+| # | Item Name | Exterior Aesthetics | Interior Reveal / Breakdown | Diegetic ASMR Profile |
+| :-: | :--- | :--- | :--- | :--- |
+| **1** | **Dragon Fruit (Pitaya)** | Vivid hot-magenta skin with lime-green flame tipped scales | Snowy-white pulp densely speckled with obsidian micro-seeds; glowing neon pink juice droplets | Razor-sharp wet slice, pressurized squelch, seed clatter |
+| **2** | **Watermelon** | Dark forest-green rind with pale mint wavy stripes | Saturated neon-crimson juicy flesh, teardrop black seeds, crisp hydraulic fracture | Deep hollow thud, crisp snapping crunch, rushing juice splash |
+| **3** | **Dubai Pistachio Chocolate Bar** | Thick glossy Belgian dark chocolate slab with grooved geometric bars | Bright emerald-green roasted pistachio knafeh cream & crispy phyllo strands | Crisp chocolate snap, buttery pastry crunch, creamy drizzle squish |
+| **4** | **Ruby Pomegranate** | Burnished deep scarlet-red leathery crown & spherical husk | Thousands of jewel-like ruby-red translucent arils bursting with crimson juice mist | Heavy leather slice, aril pop flurry, liquid jewel splatter |
+| **5** | **Golden Honeycomb Slab** | Natural translucent amber hexagonal beeswax framework | Liquid raw golden honey oozing out under blade pressure into thick ribbons | Heavy knife press, wax crackle, viscous gooey dripping honey |
+| **6** | **Amethyst Crystal Geode** | Rough weathered matte charcoal-grey volcanic rock exterior | Hollow interior lined with thousands of sparkling ultraviolet & violet quartz prisms | Chisel strike, glass-crystal fracture crunch, tinkling gem chime |
+| **7** | **Alphonso Mango** | Smooth glossy golden-saffron skin with peach blush | Silky fiberless deep-orange velvety fruit, pale ivory flat seed | Smooth butter-like slice, soft juice release, velvety plop |
+| **8** | **Hass Avocado** | Dark pebbled black-green textured alligator rind | Ultra-smooth lime-green to creamy yellow butter gradient, glossy mahogany seed | Leathery cut glide, creamy buttery separation, wooden pit bounce |
+| **9** | **Golden Coconut** | Fibrous golden-brown husk and textured coconut hair | Sharp split revealing pristine snow-white meat and a splash halo of coconut water | Heavy machete cleave, wood crack, rushing water splash, firm meat snap |
+| **10** | **Rainbow Kinetic Sand Sphere** | Concentric rainbow pastel striped sphere (violet, teal, yellow, magenta) | Softly bound micro-fine kinetic sand layers that atomize cleanly under blade | Soft whispering blade glide, zero resistance, silky sand crumble hiss |
+| **11** | **Glossy Glass Candy Apple** | Translucent candy-apple ruby glass glaze over a crisp Granny Smith core | Glaze cracks like tempered glass spiderwebs revealing bright electric green apple | Glass-like candy shatter, loud crisp apple snap, sugary crunch |
+| **12** | **Zespri Golden Kiwi** | Soft fuzzy bronze-brown thin skin | Glowing translucent golden-yellow sunburst flesh with circular halo of black seeds | Soft fuzzy skin shear, juicy tropical squelch, rhythmic seed taps |
+
+---
+
+## 🧬 Master Dynamic Prompt Formula
+
+When generating a new short for any item, replace variables in the master block:
+
+```text
+Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single {EXTERIOR_DESCRIPTION} floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove and top-right hanging slot. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at a locked 45-degree three-quarter high angle. Soft key light from upper-left, rim light, warm shadow. Completely static camera, zero jitter.
+[{BEAT_TIMESTAMPS}] {PROGRESSIVE_SLICING_ACTION} revealing {INTERIOR_REVEAL}.
+Audio: {DIEGETIC_ASMR_SOUNDS}. No music, no voiceover.
+Negative: human hands, fingers, text, watermark, cartoon look, camera shake, blurry textures.
+```
