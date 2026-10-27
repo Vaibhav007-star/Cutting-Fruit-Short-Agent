@@ -33,6 +33,11 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "")
 OUTPUT_DIR = BASE_DIR / os.getenv("OUTPUT_DIR", "output_videos")
 LOGS_DIR = BASE_DIR / os.getenv("LOGS_DIR", "logs")
 
+# Mandatory Output Video Standards (Always 1080p Full HD)
+DEFAULT_RESOLUTION = "1080p"
+TARGET_WIDTH = 1080
+TARGET_HEIGHT = 1920
+
 # Prompt management
 PROMPTS_FILE = BASE_DIR / os.getenv("PROMPTS_FILE", "prompts.txt")
 STATE_FILE = BASE_DIR / "prompts_state.json"

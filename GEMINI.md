@@ -11,27 +11,18 @@ These instructions are persistent rules for all video generation, trend hunting,
   - `[2.0s - 4.0s]` **Beat 2 (Core Assembly/Carving)**: Primary chassis, body sculpting, or transit film peel.
   - `[4.0s - 6.0s]` **Beat 3 (Detail & Interior Fit)**: Fine tools, wheel torque, interior plastic peel, or key turn.
   - `[6.0s - 8.0s]` **Beat 4 (Hero Reveal & LED Ignition)**: Headlights/taillights flare to life, exhaust sound/flame pop, holding steady hero shot.
-- **Aspect Ratio**: Always Vertical 9:16 (`720x1280` or `1080x1920`).
+- **Aspect Ratio & Resolution**: **ALWAYS Vertical 9:16 Full HD (`1080x1920` @ 1080p)**. All videos downloaded and merged from Google Flow MUST ALWAYS be exported and processed in **1080p Full HD (`1080x1920`)** with native 1080p typography and Lanczos multi-tap scaling. Never publish or output videos in 720p.
 - **Audio**: Close-mic diegetic ASMR only (mechanical clicks, ratchets, carving scrapes, vinyl hisses, startup chimes). No background music, no voiceover.
 - **Negative Constraints**: Always include: `No face, no visible person, no text, no captions, no logos, no watermark, no extra fingers, no deformed hands, no cartoon look, no morphing or melting shapes, no camera jitter, no background changing.`
 
 ---
 
 ## 2. 🗄️ MANDATORY USE OF PROMPT DATABASE & NICHES
-All prompts MUST be synthesized using the established, tested template specifications in `prompt_templates/`:
+All prompts MUST be synthesized using the established, tested template specification in `prompt_templates/`:
 
 | Niche | Template | Setting | Signature Hook |
 | :--- | :--- | :--- | :--- |
-| **Diecast Assembly** | [`diecast_car_assembly.md`](prompt_templates/diecast_car_assembly.md) | Spotless white cyclorama studio | Grille emblem snap, carbon vents click, LED flare |
-| **Wooden Carving** | [`wooden_car_carving.md`](prompt_templates/wooden_car_carving.md) | Cozy workshop oak workbench | Chisel cuts wood curls, sanding glow, taillight hum |
-| **Model-Kit Build** | [`model_kit_car_assembly.md`](prompt_templates/model_kit_car_assembly.md) | Dark green grid cutting mat | Precision nippers snip plastic sprue runners, tray build |
-| **Factory Film Peel** | [`peel_and_delivery_car_assembly.md`](prompt_templates/peel_and_delivery_car_assembly.md) | Rotating turntable studio | Protective film peel from hood/roof, push-to-start |
-| **Styrofoam Craft** | [`foam_car_sculpting.md`](prompt_templates/foam_car_sculpting.md) | Light oak workbench | Razor foam slice, sandpaper friction, brush sweep |
-| **4x4 Overlander** | [`offroad_overlander_makeover.md`](prompt_templates/offroad_overlander_makeover.md) | Bright cyclorama garage | Pneumatic impact drivers bolt bull-bar & lift kit |
-| **Kinetic Gadget** | [`kinetic_gadget_transformation.md`](prompt_templates/kinetic_gadget_transformation.md) | Living room granite table | Push-button spring burst unfolds 1:18 scale model |
-| **Container Unboxing**| [`container_unboxing_peel.md`](prompt_templates/container_unboxing_peel.md) | Dark walnut workbench | Bolt cutters snip seal, tray slide, film peel, exhaust flame |
-| **Miniature Restoration** | [`miniature_car_restoration.md`](prompt_templates/miniature_car_restoration.md) | Clean white-grey tabletop | Scalpel & tweezers moss scrape, airbrush coat, water bead hero |
-| **Symbiote Liquid Metal** | [`symbiote_liquid_metal_transformation.md`](prompt_templates/symbiote_liquid_metal_transformation.md) | Dark underground garage | Viscous black liquid-metal goo morphs into matte 4x4 |
+| **ASMR Cut Count / Slicing Simulation** | [`cut_count_slicing_simulation.md`](prompt_templates/cut_count_slicing_simulation.md) | Light oak board, dark walnut vignette | Suspended object, rapid slicing blades, progressive particle & wedge breakdown |
 
 ---
 

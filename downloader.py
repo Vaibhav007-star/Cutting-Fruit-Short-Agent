@@ -172,3 +172,29 @@ class VideoDownloader:
 
         return target_path
 
+    @staticmethod
+    def upscale_to_1080p(video_path: Path, output_path: Optional[Path] = None) -> Path:
+        """Upscales a video file to Full HD 1080x1920 using Lanczos scaling and subtle unsharp texture restoration."""
+        import subprocess
+        import imageio_ffmpeg
+        video_path = Path(video_path)
+        dest = Path(output_path) if output_path else video_path.with_name(f"{video_path.stem}_1080p{video_path.suffix}")
+
+        ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
+        cmd = [
+            ffmpeg,
+            "-y",
+            "-i", str(video_path.resolve()),
+            "-vf", "scale=1080:1920:flags=lanczos,unsharp=3:3:0.5:3:3:0.0",
+            "-c:v", "libx264",
+            "-preset", "veryfast",
+            "-crf", "18",
+            "-pix_fmt", "yuv420p",
+            "-c:a", "copy",
+            str(dest.resolve()),
+        ]
+        logger.info(f"Upscaling {video_path.name} to 1080p ({dest.name})...")
+        subprocess.run(cmd, capture_output=True, text=True, check=True)
+        return dest
+
+

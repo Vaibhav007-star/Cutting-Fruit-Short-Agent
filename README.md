@@ -1,305 +1,131 @@
-# Google Flow Video Automation System
+# 🍉 Cutting Fruit Short Agent
 
-An automated, reliable video generation and archiving pipeline for **Google Flow** (labs.google / flow.google.com). Built with Python 3.12, Playwright persistent browser automation, and a Streamlit management dashboard.
+Autonomous ASMR Fruit Slicing & Cut Count Simulation Pipeline for **Google Flow (Veo)**, **YouTube Shorts**, and **Instagram Reels**. Built with Python 3.12, Playwright persistent browser automation, multi-clip merging engine, and an interactive Streamlit management dashboard.
 
 ---
 
 ## 📑 Table of Contents
 - [Architecture Overview](#architecture-overview)
-- [Automated vs Manual Boundaries](#automated-vs-manual-boundaries)
+- [ASMR Cut Count & Slicing Engine](#asmr-cut-count--slicing-engine)
+- [Key Features](#key-features)
 - [Prerequisites](#prerequisites)
-- [Quick Start Guide (Windows PowerShell)](#quick-start-guide-windows-powershell)
+- [Quick Start Guide](#quick-start-guide)
+- [Project Structure](#project-structure)
 - [Running the Automation](#running-the-automation)
   - [Option A: Web Dashboard (Streamlit)](#option-a-web-dashboard-streamlit)
-  - [Option B: Command Line Interface (CLI)](#option-b-command-line-interface-cli)
-- [Project Structure](#project-structure)
-- [Prompt Management](#prompt-management)
-- [MCP Integration](#mcp-integration)
+  - [Option B: Flow Downloader & Multi-Clip Stitcher](#option-b-flow-downloader--multi-clip-stitcher)
+  - [Option C: YouTube Shorts Scheduling](#option-c-youtube-shorts-scheduling)
+  - [Option D: Meta Business Suite (Instagram Reels)](#option-d-meta-business-suite-instagram-reels)
 - [Safety, Privacy, and Error Handling](#safety-privacy-and-error-handling)
-- [Troubleshooting](#troubleshooting)
 
 ---
 
 ## 🏗️ Architecture Overview
 
-The system is designed with modularity, reliability, and security in mind:
+The system automates the complete lifecycle of viral cutting/slicing simulation Shorts:
 
 ```
-flow_agent/
-├── app.py                # Streamlit Web UI (Queue controls, Video Gallery, Logs)
-├── main.py               # CLI runner with arguments (--run, --login, --status, etc.)
-├── browser_manager.py    # Playwright browser controller with persistent profile (.browser_data)
-├── flow_automation.py    # Google Flow UI interaction, adaptive selectors, generation watcher
-├── prompt_manager.py     # Prompt queue state management, JSON persistence, sync from prompts.txt
-├── downloader.py         # Video download handler, blob exporter, file integrity verification
-├── config.py             # Environment configuration & path resolution
-├── prompts.txt           # Plain-text queue of creative prompts
-├── requirements.txt      # Dependency specifications
-├── .env.example          # Sample environment variables
-├── .gitignore            # Git exclusion rules protecting cookies and session data
-├── output_videos/        # Destination folder for completed, verified .mp4 videos
-├── logs/                 # Persistent runtime execution logs (automation.log)
-└── .vscode/
-    └── mcp.json          # Model Context Protocol filesystem configuration
+Cutting-Fruit-Short-Agent/
+├── app.py                             # Streamlit Web UI (Queue controls, Video Gallery, Logs)
+├── config.py                          # Environment configuration & path resolution
+├── download_and_merge_lime_short.py   # One-click download from Google Flow + clip stitcher
+├── extract_flow_project.py            # Headless extractor targeting Flow project clips
+├── merge_clips.py                     # Multi-clip FFmpeg stitcher (1080x1920 60fps, Lanczos, crossfades)
+├── flow_automation.py                 # Google Flow UI interaction, adaptive selectors, generation watcher
+├── browser_manager.py                 # Playwright browser controller with persistent profile (.browser_data)
+├── downloader.py                      # Video download handler, blob exporter, file integrity verification
+├── prompt_manager.py                  # Prompt queue state management & JSON persistence
+├── prompts.txt                        # Plain-text queue of fruit cutting prompts
+├── prompt_templates/
+│   └── cut_count_slicing_simulation.md # Core 4-Beat ASMR Cut Count & Slicing Simulation spec
+├── yt_uploader.py                     # YouTube Data API v3 uploader & peak slot scheduler
+├── meta_reels_automation.py           # Meta Business Suite Instagram Reels automation
+├── requirements.txt                   # Dependency specifications
+├── .env.example                       # Sample environment variables
+└── output_videos/                     # Destination folder for completed, verified .mp4 videos
 ```
 
 ---
 
-## ⚖️ Automated vs Manual Boundaries
+## 🔪 ASMR Cut Count & Slicing Engine
 
-Google Flow is an AI creative studio hosted by Google Labs that requires Google account authentication and respects human safety policies.
+All videos strictly follow the **4-Beat 2.0-Second Architecture** (8.0s or 12.0s multi-stage format) configured in [`cut_count_slicing_simulation.md`](prompt_templates/cut_count_slicing_simulation.md):
 
-| Component / Task | Automated or Manual | Rationale |
-| :--- | :---: | :--- |
-| **Google Sign-In** | **Manual (One-Time)** | Google blocks automated login scripts and requires 2FA/CAPTCHA. You log in once manually; the session is preserved locally in `.browser_data`. |
-| **Navigating to Studio** | **Automated** | The automation automatically opens `flow.google.com` using the saved session. |
-| **Prompt Injection** | **Automated** | Reads the next pending prompt from the queue and types it into the generation input field. |
-| **Initiating Generation** | **Automated** | Locates and clicks the Generate/Create button or submits via keyboard shortcut. |
-| **Progress Monitoring** | **Automated** | Polls generation progress, monitors for timeouts, and detects completion or error messages. |
-| **Error & Policy Detection** | **Automated** | Detects policy rejections, quota limits, and server errors; tags the prompt as Failed with details. |
-| **Video Archiving** | **Automated** | Detects completed video elements/download buttons, downloads to `output_videos/`, and verifies non-zero byte size. |
-| **Handling CAPTCHAs / Blocks** | **Manual (Safety)** | The system pauses and waits safely without attempting to circumvent Google security checks. |
+| Beat | Timestamp | Visual Action | Diegetic Audio |
+| :--- | :--- | :--- | :--- |
+| **Beat 1: The Hook** | `0.0s - 2.0s` | Suspended fruit (e.g. glossy lime) hovering above oak board; rapid blade drops | Ultrasonic blade whooshes, initial razor click |
+| **Beat 2: Cut Seams** | `2.0s - 4.0s` | Cut lines etch across the skin (2 -> 25 -> 100 -> 1000 cuts) | Rapid mechanical slicing flurry, crisp incisions |
+| **Beat 3: Breakdown** | `4.0s - 6.0s` | Fruit splits, shatters into clean geometric cubes or confetti | Juicy pop, citrus vapor hiss, pressurized burst |
+| **Beat 4: Settling** | `6.0s - 8.0s` | Particles/cubes pour down into satisfying mound on board | Fluid pouring sound, kinetic sand settling hiss |
+
+- **Aspect Ratio & Resolution**: Vertical **9:16 Full HD (`1080x1920` @ 60fps)** with Lanczos multi-tap scaling.
+- **Negative Constraints**: `No face, no visible person, no text, no captions, no logos, no watermark, no extra fingers, no deformed hands, no cartoon look, no camera jitter`.
 
 ---
 
-## ⚙️ Prerequisites
+## 🚀 Quick Start Guide
 
-- **Windows 10 or 11**
-- **Python 3.11+** (Python 3.12 installed and configured in `.venv`)
+### 1. Prerequisites
+- **Windows 10 / 11**
+- **Python 3.11+**
+- **FFmpeg** installed and in system `PATH`
 - Active Google account with access to **Google Flow** (`flow.google.com`)
 
----
-
-## 🚀 Quick Start Guide (Windows PowerShell)
-
-All commands should be executed from the project root (`c:\Projects\Flow_agent`):
-
-### 1. Activate the Virtual Environment
+### 2. Virtual Environment Setup
 ```powershell
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-*(If PowerShell restricts scripts, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first).*
-
-### 2. Verify Installed Dependencies
-Dependencies (`playwright`, `streamlit`, `python-dotenv`, `requests`) and Playwright Chromium are already installed in `.venv`. To verify or reinstall:
-```powershell
 pip install -r requirements.txt
 playwright install chromium
 ```
 
-### 3. Log In to Google (One-Time Setup)
-Run the login helper to open the persistent browser window:
+### 3. Log In to Google Flow (One-Time Setup)
 ```powershell
 python main.py --login
 ```
-1. A browser window will open displaying Google Flow.
-2. Sign in to your Google Account.
-3. Once you see the Google Flow studio interface, close the browser window.
-4. Your authenticated session is now securely stored in `.browser_data/`.
+Sign in to your Google Account. Once the Google Flow studio loads, close the browser window. Session data is safely preserved in `.browser_data/`.
 
 ---
 
 ## 🖥️ Running the Automation
 
 ### Option A: Web Dashboard (Streamlit)
-Launch the interactive web UI:
 ```powershell
 streamlit run app.py
 ```
-Open your browser to `http://localhost:8501`. From the dashboard you can:
-- **View Queue Status**: Real-time counter of Total, Pending, Processing, Completed, and Failed prompts.
-- **Start / Stop**: One-click automation start and graceful stop controls.
-- **Manage Prompts**: Add new prompts on the fly, edit existing ones, or delete unwanted prompts.
-- **Watch Completed Videos**: Embedded video player for all files in `output_videos/`.
-- **Live Logs**: Inspect real-time browser actions and diagnostic messages.
+Open `http://localhost:8501` to:
+- Monitor and control video generation queue.
+- Preview generated cutting clips and merged Shorts in the Video Gallery.
+- View live browser logs and diagnostic metrics.
 
----
-
-### Option B: Command Line Interface (CLI)
-
-- **Check Current Queue Status**:
-  ```powershell
-  python main.py --status
-  ```
-
-- **Run Batch Generation**:
-  ```powershell
-  python main.py --run
-  ```
-
-- **Run Next N Prompts (e.g. 1 prompt for testing)**:
-  ```powershell
-  python main.py --run --limit 1
-  ```
-
-- **Hunt and Queue Viral Cars (default 3, alternating niches)**:
-  ```powershell
-  python main.py --hunt 3
-  ```
-
-- **Hunt Specific Niche (e.g. Wooden Carving or Diecast)**:
-  ```powershell
-  python main.py --hunt 3 --niche wooden
-  python main.py --hunt 3 --niche diecast
-  ```
-
-- **Add a Prompt via Terminal**:
-  ```powershell
-  python main.py --add "A miniature Rich Walnut Porsche 911 GT3 RS..."
-  ```
-
-- **View Generation History (Anti-Repetition Vault)**:
-  ```powershell
-  python main.py --history
-  ```
-
-- **Clean & Purge Duplicate Prompts from Queue**:
-  ```powershell
-  python main.py --clean
-  ```
-
-- **Retry Failed Prompts**:
-  ```powershell
-  python main.py --retry --run
-  ```
-
----
-
-## 📂 Prompt Templates & Multi-Niche Engine
-
-The system features a modular prompt library located in [`prompt_templates/`](prompt_templates/) to keep content creative, non-repetitive, and viral:
-
-| Niche | Prompt File | Visual Theme | Palette / Materials |
-| :--- | :--- | :--- | :--- |
-| **🪵 Artisan Wooden Carving (New)** | [`wooden_car_carving.md`](prompt_templates/wooden_car_carving.md) | Cozy workshop, wooden workbench, chisel & sanding ASMR | 10 Locked Woods (Rich Walnut, Light Maple, Dark Ebony, etc.) |
-| **🏎️ Diecast Miniature Assembly** | [`diecast_car_assembly.md`](prompt_templates/diecast_car_assembly.md) | Spotless white studio, macro model kit parts snapping | 10 Locked Colors (Racing Red, Electric Blue, etc.) |
-
----
-
-## 🔥 Viral Car Trend Hunter
-
-The system includes an automated **Trend Hunter** (`trend_hunter.py`) that detects trending car models and automatically converts them into the 10-shot prompt format:
-- **Data Sources**: YouTube Shorts (via YouTube Data API v3), Google Trends RSS, and a high-velocity viral supercar & JDM catalogue.
-- **Multi-Niche Selector**: Choose between `Artisan Wooden Car Carving`, `Diecast Miniature Assembly`, or `Mixed / Alternating` to keep viewer retention high.
-- **Material Matching**: Automatically pairs discovered cars with unused finishes from the 10 locked colors or 10 locked woods.
-- **Streamlit Tab**: Navigate to the **"🔥 Viral Trend Hunter"** tab in the dashboard to scan, preview, customize materials, and queue trending cars with one click!
-- **CLI Command**: Run `python main.py --hunt [N] --niche [wooden|diecast|all]` from terminal.
-
----
-
-## 📺 YouTube Shorts Auto-Uploader & Autopilot
-
-Complete end-to-end hands-free automation from trend discovery to Google Flow generation to live YouTube Shorts publishing:
-
-### 1. YouTube Data API Setup (One-Time)
-1. Download OAuth 2.0 Client credentials (`client_secrets.json` Desktop app) from [Google Cloud Console](https://console.cloud.google.com/apis/credentials).
-2. Place `client_secrets.json` in the project root directory.
-3. Run one-time authorization:
-   ```powershell
-   python yt_uploader.py --auth
-   ```
-4. Sign in and grant permission. Permanent credentials are saved to `token.json` (protected in `.gitignore`).
-
-### 2. Autopilot Mode (100% Hands-Free Autonomous Loop)
-Run the continuous background autopilot loop:
+### Option B: Automatic Download & Clip Merging
+To extract clips from a project in Google Flow and assemble into a final Short:
 ```powershell
-python autopilot.py --interval 60 --hunt-count 3 --upload --privacy public
+python download_and_merge_lime_short.py
 ```
-- Automatically hunts top viral cars every cycle.
-- Synthesizes 10-shot ASMR prompts formatted to `Car Promot.pdf`.
-- Generates videos via Google Flow.
-- Downloads and verifies completed `.mp4` videos.
-- Automatically uploads to YouTube Shorts with `#Shorts`, ASMR tags, and category Autos & Vehicles (`categoryId: 2`).
+Or merge downloaded clips manually:
+```powershell
+python merge_clips.py --clips clip1.mp4 clip2.mp4 --output output_videos/lime_cut_final.mp4
+```
 
-### 3. Direct Scheduling & 2 Daily Peak Slots
-The system automatically optimizes for global viewer engagement by targeting the **2 daily peak traffic windows**:
-- **Slot 1**: `1:30 PM IST` (`08:00 UTC` / `4:00 AM EST` - European lunch & US morning feed)
-- **Slot 2**: `8:00 PM IST` (`14:30 UTC` / `10:30 AM EST` - India/Asia prime evening & US midday peak)
+### Option C: YouTube Shorts Scheduling
+Upload and schedule completed cutting Shorts to prime audience velocity windows:
+- **Slot A**: `1:30 PM IST` (`08:00:00Z`)
+- **Slot B**: `8:00 PM IST` (`14:30:00Z`)
 
-#### Commands:
-- **Autopilot with Daily Peak Slots (Hands-free 2 Shorts/day)**:
-  ```powershell
-  python autopilot.py --count 2 --upload --daily-slots
-  ```
-- **Batch Upload all completed videos to Daily Peak Slots**:
-  ```powershell
-  python yt_uploader.py --all --daily-slots
-  ```
-- **Schedule video to publish in N hours**:
-  ```powershell
-  python yt_uploader.py --upload output_videos/video_001_porsche_gt3_rs.mp4 --schedule-in-hours 3
-  ```
-- **Via Streamlit Dashboard**: Open `http://localhost:8501`, go to **"🎥 Video Gallery"**, select **"Daily Peak Slot (1:30 PM / 8:00 PM IST)"**, and click **"📅 Schedule Peak Slot"**.
+```powershell
+python yt_uploader.py --all --daily-slots
+```
 
-### 4. Viral SEO Title & Tag Engine
-`YouTubeSEO` automatically writes high-converting metadata for every Short:
-- **Rotating Viral Hooks**:
-  - `Satisfying {Car} Assembly ASMR 🎧 #Shorts`
-  - `Rate this {Car} build 1-10? 🔥 #Shorts`
-  - `Wait for the exhaust sound... {Car} 🔊 #Shorts`
-  - `Building the Ultimate {Color} {Car} in 8s ⚡ #Shorts`
-- **Descriptions**: Headphone prompts, engagement question ("Which car should we customize next?"), and targeted hashtags.
-- **Tags**: 20+ search volume tags including ASMR car clicks, diecast restoration, model assembly, and specific vehicle keywords.
-
----
-
-## 🛡️ Anti-Repetition & History Memory Engine
-
-To protect **Google Flow generation tokens**, avoid hitting daily compute limits, conserve **YouTube API upload quota**, and keep the YouTube channel fresh with non-repetitive content, the system incorporates an intelligent memory ledger (`history_manager.py` & `generation_history.json`).
-
-### Key Capabilities:
-1. **Permanent History Ledger (`generation_history.json`)**:
-   - Records every successfully generated car model, locked color, output filename, and YouTube Short URL.
-   - Prevents ever re-generating the same vehicle in the same color.
-2. **Smart Dynamic Color Cycling**:
-   - Strictly enforces the **10 locked colors** from `Car Promot.pdf`:
-     `Pearl White`, `Jet Black`, `Racing Red`, `Electric Blue`, `Matte Grey`, `Metallic Silver`, `Deep Emerald Green`, `Sunset Orange`, `Titanium Gold`, `Midnight Purple`.
-   - When a viral car (e.g., *Porsche 911 GT3 RS*) trends multiple times, the Trend Hunter checks history and automatically selects the next **unused** color from the locked palette instead of discarding the car or producing a duplicate.
-3. **Queue Deduplication**:
-   - `clean_queue_duplicates()` purges redundant pending prompts from `prompts_state.json` before any compute is spent.
-   - Autopilot runs this purge automatically before each cycle.
-4. **Streamlit UI Integration**:
-   - The **"🛡️ History & Memory"** tab visualizes unique vehicles built, direct YouTube Short links, and color palette usage distribution.
-   - Sidebar includes a one-click **"🧹 Purge Duplicates"** button.
-
----
-
-## 📝 Prompt Management
-
-Prompts are managed with dual synchronization:
-1. **`prompts.txt`**: Place individual prompts on separate lines. Lines starting with `#` are treated as comments.
-2. **`prompts_state.json`**: Tracks the persistent status (`Pending`, `Processing`, `Completed`, `Failed`), output filenames, timestamps, and error descriptions.
-
-When you add lines to `prompts.txt`, the system automatically syncs new items without resetting already completed videos.
-
----
-
-## 🔌 MCP Integration
-
-The system includes native Model Context Protocol (MCP) servers:
-
-### 1. `google-flow` (Native Automation Server)
-- **File**: `mcp_server.py`
-- **Configured In**:
-  - Global Antigravity: `~/.gemini/config/mcp_config.json`
-  - Workspace: `.vscode/mcp.json`
-- **Available MCP Tools**:
-  - `add_video_prompt(prompt)`: Queues a new video prompt.
-  - `get_queue_status()`: Checks pending, completed, and failed counts.
-  - `trigger_video_generation(limit)`: Runs automation to generate videos on Google Flow.
-  - `list_generated_videos()`: Inspects files in `output_videos/`.
-  - `retry_failed_prompts()`: Resets failed items to Pending.
-
-### 2. `filesystem` (Official Filesystem Server)
-- **Configured In**: `.vscode/mcp.json`
-- **Scope**: Scoped strictly to `c:/Projects/Flow_agent` for safe media and workspace file operations.
+### Option D: Instagram Reels Scheduling
+Schedule videos to Meta Business Suite automatically:
+```powershell
+python schedule_instagram_drip.py --start-slot morning
+```
 
 ---
 
 ## 🔒 Safety, Privacy, and Error Handling
-
-1. **Credentials**: Passwords and session cookies are never hardcoded or logged. All persistent session tokens remain strictly inside `.browser_data/` (which is excluded in `.gitignore`).
-2. **Rate Limits & Terms**: Playwright automation includes deliberate pacing delays between actions to respect Google Flow usage policies.
-3. **Integrity Verification**: The system checks that any saved video exists on disk, has a valid file size (minimum 1KB), and matches expected media headers before marking a prompt as `Completed`.
-4. **Crash Resilience**: If network interruption occurs, the current item is flagged as `Failed` with the exact error message, leaving subsequent items intact in the queue.
-
+- **No Hardcoded Credentials**: Persistent session cookies and tokens remain local inside `.browser_data/` and `.env` (ignored by `.gitignore`).
+- **File Integrity Verification**: All generated videos undergo byte-size and duration verification prior to scheduling.
+- **Automatic Fallbacks**: Gracefully handles network timeouts and Flow rate limits without corrupting queue state.

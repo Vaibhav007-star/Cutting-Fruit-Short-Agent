@@ -612,5 +612,16 @@ class GoogleFlowAutomation:
         self.is_running = False
         summary = self.prompt_manager.get_summary()
         logger.info(f"Automation queue completed. Summary: {summary}")
+
+        # Check and auto-merge completed multi-clip sequences into a 40s Short
+        try:
+            from merge_clips import auto_merge_sequence_from_state
+            merged_master = auto_merge_sequence_from_state(target_count=5)
+            if merged_master:
+                logger.info(f"Automatically merged 40s master short: {merged_master.name}")
+        except Exception as e:
+            logger.debug(f"Auto-merge hook note: {e}")
+
         return summary
+
 
