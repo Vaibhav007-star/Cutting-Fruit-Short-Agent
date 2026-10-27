@@ -43,5 +43,23 @@
     "error": null,
     "created_at": "2026-10-24T06:52:47.252744+00:00",
     "updated_at": "2026-10-24T07:35:54.695833+00:00"
+  },
+  {
+    "id": "150e010e",
+    "prompt": "Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single glossy vivid magenta dragon fruit with crisp lime-green flame-tipped scales floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at locked 45-degree high angle. Soft key light from upper-left, rim light on fruit silhouette. [0.0s-2.0s] Pristine dragon fruit hovers motionless. Rapid high-speed silver blades streak down through the fruit, etching glowing hairline white cut seams across the magenta scales. [2.0s-4.0s] The dragon fruit cleanly splits into two halves, exposing glistening snow-white pulp densely speckled with black micro-seeds and a fine mist of neon pink juice. [4.0s-6.0s] Horizontal razor sweeps slice the halves into 16 clean triangular fruit chunks with a pressurized radial spray of juice droplets. [6.0s-8.0s] The 16 chunks tumble and bounce softly onto the oak board, settling into a vibrant mound while juice beads on the wood grain. Hold steady hero shot. Audio: supersonic blade whoosh, crisp wet slice, pressurized juicy squelch, soft wooden clatter of fruit settling. No music, no voiceover. Negative: hands, fingers, human, text, watermark, logo, cartoon look, camera movement, blurry textures.",
+    "status": "Completed",
+    "output_file": "dragon_fruit_asmr_master.mp4",
+    "error": null,
+    "created_at": "2026-10-27T05:56:37.142678+00:00",
+    "updated_at": "2026-10-27T06:03:51.929256+00:00"
+  },
+  {
+    "id": "99224835",
+    "prompt": "Vertical 9:16, photoreal 3D simulation in the aesthetic of a pristine Blender physics render. A single spherical dark forest-green watermelon with pale mint wavy stripes floats suspended 10cm above a light oak wooden cutting board with a recessed juice groove. Backdrop is a dark walnut vignette studio wall with a subtle floor reflection. Fixed 50mm camera at locked 45-degree high angle. Soft key light from upper-left, rim light. [0.0s-2.0s] Pristine watermelon hovers above board. A lightning-fast silver blade streaks vertically through the equator leaving a razor-sharp cut line. [2.0s-4.0s] Watermelon splits cleanly in two with a hydraulic fracture, revealing saturated neon-crimson juicy flesh and scattered obsidian seeds with a crisp juice mist. [4.0s-6.0s] Slicing blades sweep in a cross-hatch pattern, instantly dividing the halves into 24 crisp triangular wedges. [6.0s-8.0s] The 24 watermelon wedges cascade and settle onto the light oak cutting board, bouncing slightly into a neat appetizing arrangement with glistening juice droplets. Hold steady hero shot. Audio: ultrasonic blade streak, deep hollow thud, crisp hydraulic snapping crunch, rushing juice splash, tactile wood taps. No music, no voiceover. Negative: hands, people, knives stuck in fruit, text, captions, watermark, cartoon look, camera jitter.",
+    "status": "Completed",
+    "output_file": "watermelon_asmr_master.mp4",
+    "error": null,
+    "created_at": "2026-10-27T05:56:37.142678+00:00",
+    "updated_at": "2026-10-27T06:10:21.564237+00:00"
   }
 ]
